@@ -1,52 +1,134 @@
 package cs213.photoAlbum.model;
 
+import java.util.ArrayList;
+
 /**
  * 
  * @author Jaime Reynoso & Alexander Guzman
  * 
- * 
+ *
  */
 public class User {
-
+	
 	String user_ID, fullName;
-	Album list_myAlbum[];
-	String alphabeticalOrder = "abcdefghijklmnopqrstuvwxyz";
-
+	Album head;
+	int numAlbums;
+	int placement = 0;
+	ArrayList<Photo> pics;
+	
+	public static final String storeDir = "dat";
+	public static final String storeFile = ".dat";
+	
 	/**
 	 * A User needs an ID and they need to have their full name on file
-	 * 
 	 * @param userID
 	 * @param full_Name
 	 */
-	public User(String userID, String full_Name) {
+	public User(String userID, String full_Name )
+	{
 		this.user_ID = userID;
 		this.fullName = full_Name;
-		list_myAlbum = new Album[26];
+	}
+	
+
+	public boolean addAlbum(String name)
+	{
+		if(head == null){
+			head = new Album(name);
+			numAlbums++;
+			return true;
+		}
+		else{
+			return addAlbum(head, name);
+		}
+	}
+	public Album getAlbum(String name) throws Exception{
+		Exception Exception = null;
+		if(head == null) throw Exception;
+		else{
+			return getAlbum(head, name);
+		}
+	}
+	private Album getAlbum(Album head2, String name) throws Exception {
+		Exception Exception = null;
+		if(head2 == null) throw Exception;
+		else{
+			if(head2.AlbumName == name) return head2;
+			else if(head2.AlbumName.compareTo(name) < 0) return getAlbum(head2.left, name);
+			else return getAlbum(head2.right, name);
+		}
 	}
 
-	/**
-	 * Add album
-	 * 
-	 * @param name
-	 *            - this is the name of the Album
-	 * 
-	 */
-	public void addAlbum(String name) {
-		/*
-		 * Album boss = new Album(name); int index =
-		 * name.indexOf(name.charAt(0)); //some soft of intelligent delete
-		 * method with the linked list
-		 */
-	}
 
-	/**
-	 * This deletes an album based on their name
-	 * 
-	 * @param name
-	 */
-	public void deleteAlbum(String name) {
-		// this is going to use some sort of algorithm to delete a link in
-		// a linked list
+	private boolean addAlbum( Album top, String name)
+	{
+		if(top == null)
+		{
+			top = new Album(name);
+			numAlbums++;
+			return true;
+		}
+		if( top.AlbumName.compareTo(name) < 0)  return addAlbum(top.left, name);
+		else if(top.AlbumName.compareTo(name) > 0)  return addAlbum(top.right, name);
+		else return false;
 	}
-
+	public boolean delAlbum( String name)
+	{
+		if(head == null)
+		{
+			return false;
+		}
+		else{
+			return delAlbum(head, name);
+		}
+	}
+	private boolean delAlbum( Album top, String name)
+	{
+		if( top == null) return false;
+		if(top.AlbumName.compareTo(name) == 0){
+			if(top.left != null) top.AlbumName = findLargestAlbumLeft(top);
+			else if(top.right != null) top.AlbumName = findSmallestAlbumRight(top);
+			else top = null;
+			numAlbums--;
+			return true;
+		}
+		else if(top.AlbumName.compareTo(name) < 0) return delAlbum(top.left, name);
+		else return delAlbum(top.right, name);
+	}
+	private String findLargestAlbumLeft(Album top){
+		if(top.right == null){
+			String tmp = top.AlbumName;
+			top = null;
+			return tmp;
+		}
+		else return findLargestAlbumLeft(top.right);
+	}
+	private String findSmallestAlbumRight(Album top){
+		if(top.left == null){
+			String tmp = top.AlbumName;
+			top = null;
+			return tmp;
+		} else return findSmallestAlbumRight(top.left);
+	}
+	public boolean editAlbum(String oldAlbum, String newAlbum){
+		
+		boolean returnAns = (delAlbum(oldAlbum) && addAlbum(newAlbum));
+		return returnAns;
+	}
+	public Album[] getAlbums(){
+		Album[] currentAlbums = new Album[numAlbums];
+		if(head == null) return currentAlbums;
+		else addAlbumtoArray(head, currentAlbums);
+		placement = 0;
+		return currentAlbums;
+	}
+	private void addAlbumtoArray(Album head2, Album[] currentAlbums) {
+		if(head == null) return;
+		else{
+			currentAlbums[placement] = head2;
+			placement++;
+			if(head2.left!= null) addAlbumtoArray(head2.left, currentAlbums);
+			if(head2.right != null) addAlbumtoArray(head2.right, currentAlbums);
+		}
+	}
 }
