@@ -1,4 +1,4 @@
-package cs213.photoAlbum.view;
+package cs213.photoAlbum.simpleview;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
