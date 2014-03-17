@@ -9,7 +9,9 @@ import java.util.ArrayList;
  *
  */
 public class User {
-	
+	/**
+	 * These are the initial stuff to use 
+	 */
 	String user_ID, fullName;
 	Album head;
 	int numAlbums;
