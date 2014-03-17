@@ -3,6 +3,8 @@ package cs213.photoAlbum.control;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 import cs213.photoAlbum.model.Album;
 import cs213.photoAlbum.model.Photo;
@@ -17,7 +19,7 @@ public class control {
 
 	private backendModel backend;
 	User Person;
-	String[] people;
+	ArrayList<Photo> people;
 	//login for a user needs to be there
 	/**
 	 * Creates a contructor object needing a user
@@ -44,12 +46,12 @@ public class control {
 		person.addAlbum(nAlbumName);
 	}
 	public void deleteAlbum(User user, String album) throws Exception{
-		Album[] n = user.getAlbums();
+		ArrayList<Album> n = user.getAlbums();
 		Album p = new Album("zzz");
 		int success = 0;
-		for(int i = 0; i < n.length; i++){
-			if(n[i].AlbumName.equals(album)){
-				p = n[i];
+		for(int i = 0; i < n.size(); i++){
+			if(n.get(i).AlbumName.equals(album)){
+				p = n.get(i);
 				success = 1;
 			}
 		}
@@ -110,6 +112,24 @@ public class control {
 			throw e;
 		}
 	}
+	
+	
+	public User getPerson() {
+		return Person;
+	}
+
+	public void setPerson(User person) {
+		Person = person;
+	}
+
+	public ArrayList<Photo> getPeople() {
+		return people;
+	}
+
+	public void setPeople(ArrayList<Photo> people) {
+		this.people = people;
+	}
+
 	//create an album for this user
 	/**
 	 * returns true if createAlbum was possible
@@ -134,14 +154,14 @@ public class control {
 	/** Returns the name of all the albums
 	 * @return albumName array
 	 */
-	public String[] getAlbums(){
+	public ArrayList<Photo> getAlbums(){
 		return people;
 	}
 	//list photos in an album (retrieve all photos)
 	/**Returns a string of all the photo names in the album you last used
 	 * @return photoArray
 	 */
-	public String[] getPhoto(){
+	public ArrayList<Photo> getPhoto(){
 		return people;
 	}
 	/**
@@ -149,7 +169,7 @@ public class control {
 	 * @param AlbumName
 	 * @return photo
 	 */
-	public String[] getPhoto(String AlbumName){
+	public ArrayList<Photo> getPhoto(String AlbumName){
 		return people;
 	}
 	//move an photo from one album to the other
@@ -177,7 +197,7 @@ public class control {
 	 * @param photo
 	 * @return taggedPeople
 	 */
-	public String[] getPhotoInfo(String albumName, String photo){
+	public ArrayList<Photo> getPhotoInfo(String albumName, String photo){
 		return people;
 	}
 	//get photos with chronological order
@@ -185,20 +205,26 @@ public class control {
 	 * @param Album
 	 * @return
 	 */
-	public String[] getPhotos(String Album){
+	public ArrayList<Photo> getPhotos(String Album){
 		return people;
 	}
 	//search for photos through a certain tag
 	/** returns all the photos with a gien tag and the given tag value
-	 * @param tag
-	 * @param Value
+	 * @param user
+	 * @param options
 	 * @return people
 	 */
-	public String[] getTagPhoto(String tag, String Value){
+	public ArrayList<Photo> getTagPhoto(User user, String[] options){
 		return people;
 	}
 	public void saveSession() throws IOException, FileNotFoundException {
 		backend.saveSession();
+	}
+
+	public List<Photo> getPhotosByDate(User user, Calendar startDate,
+			Calendar endDate) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

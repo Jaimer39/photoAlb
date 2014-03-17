@@ -33,6 +33,81 @@ public class User {
 	}
 	
 
+	public String getUser_ID() {
+		return user_ID;
+	}
+
+
+	public void setUser_ID(String user_ID) {
+		this.user_ID = user_ID;
+	}
+
+
+	public String getFullName() {
+		return fullName;
+	}
+
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+
+	public Album getHead() {
+		return head;
+	}
+
+
+	public void setHead(Album head) {
+		this.head = head;
+	}
+
+
+	public int getNumAlbums() {
+		return numAlbums;
+	}
+
+
+	public void setNumAlbums(int numAlbums) {
+		this.numAlbums = numAlbums;
+	}
+
+
+	public int getPlacement() {
+		return placement;
+	}
+
+
+	public void setPlacement(int placement) {
+		this.placement = placement;
+	}
+
+
+	public ArrayList<Photo> getPics() {
+		return pics;
+	}
+
+
+	public void setPics(ArrayList<Photo> pics) {
+		this.pics = pics;
+	}
+	
+	public Photo getPhoto(String name) throws Exception{
+		name = name.toLowerCase();
+		if(!pics.contains(name)){
+			return null;
+		}
+		else{
+			for(int x=0;x< pics.size();x++){
+				if(pics.get(x).fileName==name){
+					return pics.get(x);
+				}
+			}
+		}
+		return null;
+	}
+
+
 	public boolean addAlbum(String name)
 	{
 		if(head == null){
@@ -117,17 +192,17 @@ public class User {
 		boolean returnAns = (delAlbum(oldAlbum) && addAlbum(newAlbum));
 		return returnAns;
 	}
-	public Album[] getAlbums(){
-		Album[] currentAlbums = new Album[numAlbums];
+	public ArrayList<Album> getAlbums(){
+		ArrayList<Album> currentAlbums = new ArrayList<Album>();
 		if(head == null) return currentAlbums;
 		else addAlbumtoArray(head, currentAlbums);
 		placement = 0;
 		return currentAlbums;
 	}
-	private void addAlbumtoArray(Album head2, Album[] currentAlbums) {
+	private void addAlbumtoArray(Album head2, ArrayList<Album> currentAlbums) {
 		if(head == null) return;
 		else{
-			currentAlbums[placement] = head2;
+			currentAlbums.add(head2);
 			placement++;
 			if(head2.left!= null) addAlbumtoArray(head2.left, currentAlbums);
 			if(head2.right != null) addAlbumtoArray(head2.right, currentAlbums);

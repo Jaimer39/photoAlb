@@ -44,6 +44,76 @@ public class Photo implements Serializable{
 	}
 	
 	
+	public String getFileName() {
+		return fileName;
+	}
+
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+
+	public String getCaption() {
+		return Caption;
+	}
+
+
+	public void setCaption(String caption) {
+		Caption = caption;
+	}
+
+
+	public Calendar getCal() {
+		return cal;
+	}
+
+
+	public void setCal(Calendar cal) {
+		this.cal = cal;
+	}
+
+
+	public ArrayList<tag> getTags() {
+		return tags;
+	}
+
+
+	public void setTags(ArrayList<tag> tags) {
+		this.tags = tags;
+	}
+
+
+	public int getNumFriends() {
+		return numFriends;
+	}
+
+
+	public void setNumFriends(int numFriends) {
+		this.numFriends = numFriends;
+	}
+
+
+	public File getF() {
+		return f;
+	}
+
+
+	public void setF(File f) {
+		this.f = f;
+	}
+
+
+	public Date getTime() {
+		return time;
+	}
+
+
+	public void setTime(Date time) {
+		this.time = time;
+	}
+
+
 	/**Tags a friend in a photo
 	 * @param name
 	 */
@@ -59,6 +129,7 @@ public class Photo implements Serializable{
 		tag newTemp = new tag("Person", name);
 		tags.add(newTemp);
 	}
+	
 	
 	/** lets you delete a tagged person
 	 * @param name
@@ -137,4 +208,11 @@ public class Photo implements Serializable{
 	public void removePics() {
 		f.delete();
 	}
+
+
+	public ArrayList<Album> getAlbums() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

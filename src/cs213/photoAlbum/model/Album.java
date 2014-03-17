@@ -61,4 +61,14 @@ public class Album {
 		return pics;
 	}
 
+	public String getAlbumName() {
+		return AlbumName;
+	}
+
+	public void setAlbumName(String albumName) {
+		AlbumName = albumName;
+	}
+	
+	
+
 }
