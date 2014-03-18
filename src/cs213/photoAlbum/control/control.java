@@ -29,22 +29,48 @@ public class control {
 		backend = new backendModel();
 	}
 	
+	/**This is supposed to return a list of users
+	 * @return A list of Users
+	 */
 	public ArrayList<User> getUsers() {
 		return backend.getUsers();
 	}
+	/**Get a Certain user
+	 * @param userID
+	 * @return User
+	 * @throws Exception
+	 */
 	public User getUser(String userID) throws Exception {
 		return backend.getUser(userID.toLowerCase());
 	}
+	/**Adds a User to the list of users
+	 * @param id
+	 * @param name
+	 * @throws Exception
+	 */
 	public void addUser(String id, String name) throws Exception {	
 		User user = new User(id,name);
 		backend.writeAUser(user);
 	}
+	/**Deletes a user with this ID
+	 * @param id
+	 * @throws Exception
+	 */
 	public void deleteUser(String id) throws Exception{
 		backend.deleteUser(id);
 	}
+	/**Creates an album for a User
+	 * @param person
+	 * @param nAlbumName
+	 */
 	public void createAlbum(User person, String nAlbumName){
 		person.addAlbum(nAlbumName);
 	}
+	/**Deletes an album from a user, throws Exception if it wasn't there
+	 * @param user
+	 * @param album
+	 * @throws Exception
+	 */
 	public void deleteAlbum(User user, String album) throws Exception{
 		ArrayList<Album> n = user.getAlbums();
 		Album p = new Album("zzz");
@@ -62,11 +88,15 @@ public class control {
 		}
 		ArrayList<Photo> pics = p.getPhotos();
 		user.delAlbum(album);
-		for(Photo a:pics){
-			a.removePics();
-		}
 		
 	}
+	/**Adds a photo to an album from a user
+	 * @param user
+	 * @param fileName
+	 * @param caption
+	 * @param albumName
+	 * @throws Exception
+	 */
 	public void addPhoto(User user, String fileName, String caption, String albumName) throws Exception{
 		Album tmp = new Album("zzz");
 		try{
@@ -77,6 +107,13 @@ public class control {
 		tmp.addPhoto(new Photo(fileName, caption));
 		
 	}
+	/**Moves a photo from an album to another album
+	 * @param user
+	 * @param title
+	 * @param oldAlb
+	 * @param newAlb
+	 * @throws Exception
+	 */
 	public void movePhoto(User user, String title, String oldAlb, String newAlb) throws Exception{
 		try{
 		Album temp1 = user.getAlbum(oldAlb);
@@ -87,6 +124,12 @@ public class control {
 			throw e;
 		}
 	}
+	/**Removes a photo from an album completely
+	 * @param user
+	 * @param title
+	 * @param AlbumName
+	 * @throws Exception
+	 */
 	public void removePhoto(User user, String title, String AlbumName)throws Exception{
 		try{
 		Album album = user.getAlbum(AlbumName);
@@ -96,6 +139,14 @@ public class control {
 		}
 	}
 	
+	/**Adds tags to a photo
+	 * @param user
+	 * @param fileName
+	 * @param tagType
+	 * @param tagValue
+	 * @param AlbumName
+	 * @throws Exception
+	 */
 	public void addTag(User user, String fileName, String tagType, String tagValue, String AlbumName) throws Exception{
 		try{
 		Photo pic = user.getAlbum(AlbumName).getPhoto(fileName);
@@ -104,6 +155,14 @@ public class control {
 			throw e;
 		}
 	}
+	/**Deletes a tag from a photo
+	 * @param user
+	 * @param fileName
+	 * @param tagType
+	 * @param tagValue
+	 * @param alb
+	 * @throws Exception
+	 */
 	public void deleteTag(User user, String fileName, String tagType, String tagValue, String alb) throws Exception{
 		try{
 			Photo pic = user.getAlbum(alb).getPhoto(fileName);
@@ -114,20 +173,25 @@ public class control {
 	}
 	
 	
+	/**returns the user that is logged on
+	 * @return User
+	 */
 	public User getPerson() {
 		return Person;
 	}
 
+	/** Changes the logged on User
+	 * @param person
+	 */
 	public void setPerson(User person) {
 		Person = person;
 	}
 
+	/**Returns a list of Photos
+	 * @return
+	 */
 	public ArrayList<Photo> getPeople() {
 		return people;
-	}
-
-	public void setPeople(ArrayList<Photo> people) {
-		this.people = people;
 	}
 
 	//create an album for this user
@@ -137,8 +201,8 @@ public class control {
 	 * @return successful
 	 */
 	public boolean createAlbum(String name){
-		//this creates an album with the specific name
-		return true;
+		return Person.addAlbum(name);
+		
 	}
 	//delete an album
 	/**
@@ -147,7 +211,8 @@ public class control {
 	 * @return successful
 	 */
 	public boolean deleteAlbum(String name){
-		return true;
+		return Person.delAlbum(name);
+		
 		//this deletes an album for the user
 	}
 	//list albums
@@ -217,6 +282,10 @@ public class control {
 	public ArrayList<Photo> getTagPhoto(User user, String[] options){
 		return people;
 	}
+	/** Saves a Session for a user
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 */
 	public void saveSession() throws IOException, FileNotFoundException {
 		backend.saveSession();
 	}

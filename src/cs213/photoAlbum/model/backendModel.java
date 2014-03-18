@@ -9,12 +9,19 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+/**
+ * @author Jaime Reynoso and Alexander Guzman
+ *
+ */
 public class backendModel implements backend {
 
-	
+	private User LoggedUser;
 	ArrayList<User> users;
 	private String modelFileName = ".." + File.separator + "data" + File.separator + "photo-album.dat";
 	
+	/**Default constructor for a backendModel
+	 * 
+	 */
 	public backendModel(){
 		
 		FileInputStream src = null;
@@ -31,7 +38,11 @@ public class backendModel implements backend {
 
 	@Override
 	public User readAUser(String name) {
-		// TODO Auto-generated method stub
+		for(User a: users){
+			if(a.getFullName().equalsIgnoreCase(name)){
+				return a;
+			}
+		}
 		return null;
 	}
 

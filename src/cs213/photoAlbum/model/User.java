@@ -50,55 +50,56 @@ public class User implements Serializable{
 	}
 
 
+	/**Returns the name of the user
+	 * @return fullName
+	 */
 	public String getFullName() {
 		return fullName;
 	}
 
 
+	/** Changes the User's name
+	 * @param fullName
+	 */
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
 
 
+	/**Returns where the Album starts
+	 * @return Album-head
+	 */
 	public Album getHead() {
 		return head;
 	}
 
 
-	public void setHead(Album head) {
-		this.head = head;
-	}
-
-
+	/** Returns the number of Albums a User may have
+	 * @return NumberOfAlbums
+	 */
 	public int getNumAlbums() {
 		return numAlbums;
 	}
 
-
-	public void setNumAlbums(int numAlbums) {
-		this.numAlbums = numAlbums;
-	}
-
-
+	/** Returns the Placement
+	 * @return Placement 
+	 */
 	public int getPlacement() {
 		return placement;
 	}
 
-
-	public void setPlacement(int placement) {
-		this.placement = placement;
-	}
-
-
+	/** Returns the Photos from a User
+	 * @return Photos
+	 */
 	public ArrayList<Photo> getPics() {
 		return pics;
 	}
-
-
-	public void setPics(ArrayList<Photo> pics) {
-		this.pics = pics;
-	}
 	
+	/**Looks for a Photo and returns it
+	 * @param name
+	 * @return Photo
+	 * @throws Exception
+	 */
 	public Photo getPhoto(String name) throws Exception{
 		name = name.toLowerCase();
 		if(!pics.contains(name)){
@@ -115,6 +116,10 @@ public class User implements Serializable{
 	}
 
 
+	/**Creates A BST for the Albums a User Contains
+	 * @param name
+	 * @return true if it was possible
+	 */
 	public boolean addAlbum(String name)
 	{
 		if(head == null){
@@ -126,6 +131,11 @@ public class User implements Serializable{
 			return addAlbum(head, name);
 		}
 	}
+	/**Recursively returns an album a user has
+	 * @param name
+	 * @return album
+	 * @throws Exception if it couldn't find it
+	 */
 	public Album getAlbum(String name) throws Exception{
 		Exception Exception = null;
 		if(head == null) throw Exception;
@@ -156,6 +166,10 @@ public class User implements Serializable{
 		else if(top.AlbumName.compareTo(name) > 0)  return addAlbum(top.right, name);
 		else return false;
 	}
+	/** Recursively deletes an album
+	 * @param name
+	 * @return true if it got deleted
+	 */
 	public boolean delAlbum( String name)
 	{
 		if(head == null)
@@ -194,11 +208,19 @@ public class User implements Serializable{
 			return tmp;
 		} else return findSmallestAlbumRight(top.left);
 	}
+	/**Edits an album from a user, recursively
+	 * @param oldAlbum
+	 * @param newAlbum
+	 * @return true if it was able to.
+	 */
 	public boolean editAlbum(String oldAlbum, String newAlbum){
 		
 		boolean returnAns = (delAlbum(oldAlbum) && addAlbum(newAlbum));
 		return returnAns;
 	}
+	/**Get Albums()
+	 * @return The Albums a User may have
+	 */
 	public ArrayList<Album> getAlbums(){
 		ArrayList<Album> currentAlbums = new ArrayList<Album>();
 		if(head == null) return currentAlbums;
