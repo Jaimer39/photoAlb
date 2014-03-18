@@ -1,5 +1,6 @@
 package cs213.photoAlbum.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  * 
  *
  */
-public class User {
+public class User implements Serializable{
 	/**
 	 * These are the initial stuff to use 
 	 */
@@ -33,11 +34,17 @@ public class User {
 	}
 	
 
+	/**Returns User's ID Name
+	 * @return User Id
+	 */
 	public String getUser_ID() {
 		return user_ID;
 	}
 
 
+	/** Changes the User's ID
+	 * @param user_ID
+	 */
 	public void setUser_ID(String user_ID) {
 		this.user_ID = user_ID;
 	}

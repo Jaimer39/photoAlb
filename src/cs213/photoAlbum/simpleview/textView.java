@@ -1,22 +1,23 @@
 package cs213.photoAlbum.simpleview;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Scanner;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cs213.photoAlbum.control.control;
 import cs213.photoAlbum.model.Album;
 import cs213.photoAlbum.model.Photo;
+import cs213.photoAlbum.model.tag;
 
 /**
  * Textview of the app
@@ -404,10 +405,10 @@ public class textView {
 
 		System.out.println("Photo file name: " + photo.getFileName());
 		System.out.print("Album: ");
-		ArrayList<Album> albums = photo.getAlbums();
+		ArrayList<tag> albums = photo.getAlbums();
 		for (int i = 0; i < albums.size(); i++) {
 			if (i > 0) System.out.print(", ");
-			System.out.print(albums.get(i).getAlbumName());
+			System.out.print(albums.get(i).getValue());
 		}
 		System.out.println();
 		System.out.println("Date: " + dateFormat.format(photo.getTime().getTime()));
